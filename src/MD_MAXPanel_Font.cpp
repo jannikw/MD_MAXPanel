@@ -29,7 +29,7 @@ uint16_t MD_MAXPanel::getTextWidth(const char *psz)
   return(sum);
 }
 
-uint16_t MD_MAXPanel::drawText(uint16_t x, uint16_t y, const char *psz, rotation_t rot, bool state)
+uint16_t MD_MAXPanel::drawText(uint16_t x, uint16_t y, const char *psz, rotation_t rot, bool state, bool blend)
 {
   uint8_t height = _D->getFontHeight();
   uint8_t bufSize = _D->getMaxFontWidth() + _charSpacing;
@@ -55,29 +55,53 @@ uint16_t MD_MAXPanel::drawText(uint16_t x, uint16_t y, const char *psz, rotation
     {
     case ROT_0:
       for (uint16_t i = 0; i < size; i++)
+      {
         for (uint16_t j = 0; j < height; j++)
-            setPoint(x + i, y - j, (buf[i] & (1 << j) ? state : !state));
+        {
+          bool pixel = buf[i] & (1 << j);
+          if (pixel || !blend)
+            setPoint(x + i, y - j, pixel ? state : !state);
+        }
+      }
       x += size;
       break;
 
     case ROT_90:
       for (uint16_t j = 0; j < size; j++)
+      {
         for (uint16_t i = 0; i < height; i++)
-          setPoint(x + i, y + j, (buf[j] & (1 << i) ? state : !state));
+        {
+          bool pixel = buf[j] & (1 << i);
+          if (pixel || !blend)
+            setPoint(x + i, y + j, pixel ? state : !state);
+        }
+      }
       y += size;
       break;
 
     case ROT_180:
       for (uint16_t i = 0; i < size; i++)
+      {
         for (uint16_t j = 0; j < height; j++)
-          setPoint(x - i, y + j, (buf[i] & (1 << j) ? state : !state));
+        {
+          bool pixel = buf[i] & (1 << j);
+          if (pixel || !blend)
+            setPoint(x - i, y + j, pixel ? state : !state);
+        }
+      }
       x -= size;
       break;
 
     case ROT_270:
       for (uint16_t j = 0; j < size; j++)
+      {
         for (uint16_t i = 0; i < height; i++)
-          setPoint(x - i, y - j, (buf[j] & (1 << i) ? state : !state));
+        {
+          bool pixel = buf[j] & (1 << i);
+          if (pixel || !blend)
+            setPoint(x - i, y - j, pixel ? state : !state);
+        }
+      }
       y -= size;
       break;
     }

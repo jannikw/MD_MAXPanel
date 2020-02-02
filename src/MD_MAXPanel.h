@@ -591,9 +591,10 @@ public:
   * \param psz the text to be displayed as a nul terminated character array.
   * \param rot the required rotation orientation for the text as described in textRotation_t. Default is ROT_0.
   * \param state true - switch on; false - switch off. If omitted, default to true.
+  * \param blend if true, only set pixels actually occupied by character, leaves the other pixels as they are
   * \return the length of the text in pixels.
   */
-  uint16_t drawText(uint16_t x, uint16_t y, const char *psz, rotation_t rot = ROT_0, bool state = true);
+  uint16_t drawText(uint16_t x, uint16_t y, const char *psz, rotation_t rot = ROT_0, bool state = true, bool blend = false);
 
   /** @} */
 
