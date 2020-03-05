@@ -87,6 +87,30 @@ uint16_t MD_MAXPanel::getYMax(void)
   return(m);
 }
 
+uint16_t MD_MAXPanel::getWidth(void)
+{ 
+  uint16_t m;
+
+  if (_rotatedDisplay)
+    m = (_yDevices * ROW_SIZE);
+  else
+    m = (_xDevices * COL_SIZE);
+
+  return(m);
+}
+
+uint16_t MD_MAXPanel::getHeight(void) 
+{ 
+  uint16_t m;
+
+  if (_rotatedDisplay)
+    m = (_xDevices * COL_SIZE);
+  else
+    m = (_yDevices * ROW_SIZE);
+
+  return(m);
+}
+
 bool MD_MAXPanel::drawHLine(uint16_t y, uint16_t x1, uint16_t x2, bool state)
 // draw a horizontal line at row y between columns x1 and x2 inclusive
 {

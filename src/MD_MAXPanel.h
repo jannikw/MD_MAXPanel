@@ -258,6 +258,10 @@ public:
    */
   uint16_t getYMax(void);
 
+  uint16_t getWidth(void);
+
+  uint16_t getHeight(void);
+
   /**
    * Get the rotation status of the display
    * 
